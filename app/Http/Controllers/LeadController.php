@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\LeadsImport;
+use App\Models\File;
 use App\Models\Lead;
+use App\Models\Transmission;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LeadController extends Controller
 {
     public function index()
-
-    {   $files = Lead::all();
+    {
+        $files = Lead::all();
         return view('lead.index', compact('files'));
     }
 
@@ -20,23 +24,15 @@ class LeadController extends Controller
 
     public function store(Request $request)
     {
-
         $request->validate([
         'file' => 'required|file|max:50000',
         ]);
-         $img = $request->file('file');
-         $file_name = uniqid().'-'.time().'.'.$img->getClientOriginalExtension();
-         $file_path = 'uploads/'.$file_name;
-         $file = new Lead;
-         $file->filename = $file_name;
-         $file->filetype = $img->getClientOriginalExtension();;
-         $file->filesize = $img->getSize();;
-         $file->filepath = '/uploads';
-         $file->file = $file_path;
-         $file->originalName = $img->getClientOriginalName();
-         $file->save();
-         $request->file('file')->move(storage_path('uploads'), $file_name);
-         return response()->json(['success' => 'Lead Uploaded Successfully']);
+        $transmission = new Transmission;
+        $transmission->name = $request->file('file')->getClientOriginalName();
+        $transmission->save();
+        Excel::import(new LeadsImport($transmission->id), $request->file('file'));
+        $this->uploadFile($request->file('file'), $transmission->id);
+        return response()->json(['success' => 'Lead Uploaded Successfully']);
 
     }
 
@@ -62,5 +58,20 @@ class LeadController extends Controller
        $file->delete();
        return redirect()->back()->with(['status' => __('Deleted Successfully')]);
 
+    }
+
+    public function uploadFile($reqFile, $transmission_id)
+    {
+         $file_path = 'uploads/'.$reqFile->getClientOriginalName();
+         $file = new File;
+         $file->filename = $reqFile->getClientOriginalName();
+         $file->filetype = $reqFile->getClientOriginalExtension();;
+         $file->filesize = $reqFile->getSize();;
+         $file->filepath = '/uploads';
+         $file->file = $file_path;
+         $file->originalName = $reqFile->getClientOriginalName();
+         $file->transmission_id = $transmission_id;
+         $file->save();
+         $reqFile->move(storage_path('uploads'), $reqFile->getClientOriginalName());
     }
 }

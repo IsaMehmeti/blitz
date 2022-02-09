@@ -17,7 +17,7 @@
                     <li class="{{ Request::is('lead/create') ? 'nav-active' : '' }}">
                         <a class="nav-link" href="{{url('lead/create')}}">
                             <i class="fab fa-google-drive"></i>
-                            <span>{{__('Create Lead')}}</span>
+                            <span>{{__('Upload Leads')}}</span>
                         </a>
                     </li>
                     <li class="{{ Request::is('user/create') ? 'nav-active' : '' }}">

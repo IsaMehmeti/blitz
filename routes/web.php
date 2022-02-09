@@ -27,7 +27,7 @@ Route::group(['middleware' => 'auth'], function(){
      //file-storage
     Route::group(['prefix' => 'lead/'], function () {
         Route::get('/', 'LeadController@index');
-        Route::get('/create', 'LeadController@create');
+        Route::get('/create', 'LeadController@create')->name('create.lead');;
         Route::post('/store', 'LeadController@store')->name('store.lead');
         Route::get('/{id}/download', 'LeadController@download')->name('download.lead');
         Route::delete('/{id}/delete', 'LeadController@destroy')->name('delete.lead');
