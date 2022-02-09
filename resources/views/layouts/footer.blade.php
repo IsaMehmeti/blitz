@@ -5,7 +5,7 @@
                 <div class="col">
                     <div class="copyright bg-color-dark-scale-4 py-4">
                         <div class="container text-center py-2">
-                             <p class="text-center text-muted mt-3 mb-3">&copy; {{ date('Y') }} @lang('messages.Copyright')  <a href="https://tagdigitals.com/en/" target="blank">TAG Digitals</a>  - @lang('messages.All Rights Reserved')</p>
+                             <p class="text-center text-muted mt-3 mb-3">&copy; {{ date('Y') }} @lang('Copyright') - @lang('All Rights Reserved')</p>
                         </div>
                     </div>
                 </div>

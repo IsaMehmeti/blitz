@@ -24,5 +24,16 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('/user', 'UserController');
 
+     //file-storage
+    Route::group(['prefix' => 'lead/'], function () {
+        Route::get('/', 'LeadController@index');
+        Route::get('/create', 'LeadController@create');
+        Route::post('/store', 'LeadController@store')->name('store.lead');
+        Route::get('/{id}/download', 'LeadController@download')->name('download.lead');
+        Route::delete('/{id}/delete', 'LeadController@destroy')->name('delete.lead');
+    });
+
+
+
     Route::get('/logout', 'Auth\LoginController@logout');
 });
