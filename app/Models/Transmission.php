@@ -17,16 +17,16 @@ class Transmission extends Model
 
     public function leads()
     {
-        $this->hasMany(Lead::class);
+        return $this->hasMany(Lead::class);
     }
 
     public function user()
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function file()
     {
-        $this->hasOne(File::class);
+        return $this->hasOne(File::class);
     }
 }

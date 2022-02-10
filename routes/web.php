@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('/user', 'UserController');
 
-     //file-storage
+     //lead-file-storage
     Route::group(['prefix' => 'lead/'], function () {
         Route::get('/', 'LeadController@index');
         Route::get('/create', 'LeadController@create')->name('create.lead');;
@@ -33,6 +33,16 @@ Route::group(['middleware' => 'auth'], function(){
         Route::delete('/{id}/delete', 'LeadController@destroy')->name('delete.lead');
     });
 
+    //customers
+    Route::get('/customers', 'CustomerController@index')->name('customer.index');
+    Route::get('/customers/{id}', 'CustomerController@show')->name('customer.show');
+
+
+    //transmissions
+    Route::get('/transmissions', 'TransmissionController@index')->name('transmission.index');
+    Route::get('/transmissions/{id}', 'TransmissionController@show')->name('transmission.show');
+    Route::get('/transmissions/download', 'TransmissionController@download')->name('transmission.download');
+    Route::delete('/transmissions/delete', 'TransmissionController@download')->name('transmission.destroy');
 
 
     Route::get('/logout', 'Auth\LoginController@logout');

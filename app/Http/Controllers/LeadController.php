@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\CustomerImport;
 use App\Imports\LeadsImport;
 use App\Models\File;
 use App\Models\Lead;
@@ -27,13 +28,15 @@ class LeadController extends Controller
         $request->validate([
         'file' => 'required|file|max:50000',
         ]);
+
         $transmission = new Transmission;
         $transmission->name = $request->file('file')->getClientOriginalName();
+        $transmission->user_id = auth()->user()->id;
         $transmission->save();
         Excel::import(new LeadsImport($transmission->id), $request->file('file'));
+        Excel::import(new CustomerImport, $request->file('file'));
         $this->uploadFile($request->file('file'), $transmission->id);
         return response()->json(['success' => 'Lead Uploaded Successfully']);
-
     }
 
     public function download($id)

@@ -18,12 +18,12 @@
                         <a href="#" class="card-action card-action-dismiss" data-card-dismiss=""></a>
                     </div>
 
-                    <h2 class="card-title">{{__('Upload File')}}</h2>
+                    <h2 class="card-title">{{__('Upload Lead')}}</h2>
                 </header>
                 <div class="card-body">
                         @csrf
                         <div class="form-group row">
-                            <label class="col-lg-3 control-label text-lg-right pt-2">{{__('Upload Lead')}}</label>
+                            <label class="col-lg-3 control-label text-lg-right pt-2">{{__('Upload File')}}</label>
                             <div class="col-lg-6">
                                 <div class="fileupload fileupload-new"  data-provides="fileupload"><input type="hidden" >
                                     <div class="input-append">
