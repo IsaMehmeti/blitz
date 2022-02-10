@@ -30,10 +30,10 @@ class LeadsImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         $status = true;
-        if(!preg_match('/^[a-z0-9 .\-9äöüÄÖÜß-]+$/i', $row['company_name'])) //true if has error
-        {
-          $status = false;
-        }
+        if(!preg_match('/^[a-z0-9 .\-9äöüÄÖÜß-]+$/i', $row['company_name']))$status = false;
+        if(!preg_match('/^[a-z0-9 .\-9äöüÄÖÜß-]+$/i', $row['location']))$status = false;
+        if(!preg_match('/^[a-z0-9 .\-9äöüÄÖÜß-]+$/i', $row['addres']))$status = false;
+        if(!preg_match('/^[a-z0-9 .\-9äöüÄÖÜß-]+$/i', $row['ort']))$status = false;
         $lead = new Lead([
             'location' => $row['location'],
             'company_name' => $row['company_name'],

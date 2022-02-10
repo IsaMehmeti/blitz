@@ -20,15 +20,15 @@
                             <span>{{__('Upload Leads')}}</span>
                         </a>
                     </li>
-                    <li class="{{ Request::is('/customers') ? 'nav-active' : '' }}">
+                    <li class="{{ Request::is('customers*') ? 'nav-active' : '' }}">
                         <a class="nav-link" href="{{route('customer.index')}}">
                             <i class="fas fa-credit-card"></i>
                             <span>{{__('Customers')}}</span>
                         </a>
                     </li>
-                    <li class="{{ Request::is('/transmissions') ? 'nav-active' : '' }}">
+                    <li class="{{ Request::is('transmissions*') ? 'nav-active' : '' }}">
                         <a class="nav-link" href="{{route('transmission.index')}}">
-                            <i class="fas fa-server"></i>
+                            <i class="fas fa-wifi"></i>
                             <span>{{__('Transmissions')}}</span>
                         </a>
                     </li>

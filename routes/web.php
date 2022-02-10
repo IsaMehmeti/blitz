@@ -13,11 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
- //perdoruesit
-Auth::routes();
+Auth::routes(['register' => false]);
 
 //user needs to be logged in routes
 Route::group(['middleware' => 'auth'], function(){
@@ -29,8 +25,6 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/', 'LeadController@index');
         Route::get('/create', 'LeadController@create')->name('create.lead');;
         Route::post('/store', 'LeadController@store')->name('store.lead');
-        Route::get('/{id}/download', 'LeadController@download')->name('download.lead');
-        Route::delete('/{id}/delete', 'LeadController@destroy')->name('delete.lead');
     });
 
     //customers
@@ -40,9 +34,9 @@ Route::group(['middleware' => 'auth'], function(){
 
     //transmissions
     Route::get('/transmissions', 'TransmissionController@index')->name('transmission.index');
-    Route::get('/transmissions/{id}', 'TransmissionController@show')->name('transmission.show');
-    Route::get('/transmissions/download', 'TransmissionController@download')->name('transmission.download');
+    Route::get('/transmissions/download/{id}', 'LeadController@download')->name('transmission.download');
     Route::delete('/transmissions/delete', 'TransmissionController@download')->name('transmission.destroy');
+    Route::get('/transmissions/{id}', 'TransmissionController@show')->name('transmission.show');
 
 
     Route::get('/logout', 'Auth\LoginController@logout');

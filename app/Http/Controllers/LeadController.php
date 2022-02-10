@@ -25,14 +25,16 @@ class LeadController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
-        'file' => 'required|file|max:50000',
+        'file' => 'required|file|max:50000|mimes:xlsx',
         ]);
 
         $transmission = new Transmission;
         $transmission->name = $request->file('file')->getClientOriginalName();
         $transmission->user_id = auth()->user()->id;
         $transmission->save();
+
         Excel::import(new LeadsImport($transmission->id), $request->file('file'));
         Excel::import(new CustomerImport, $request->file('file'));
         $this->uploadFile($request->file('file'), $transmission->id);
@@ -41,11 +43,10 @@ class LeadController extends Controller
 
     public function download($id)
     {
-        $file = Lead::findOrFail($id);
+        $file = File::findOrFail($id);
         $filePath = storage_path($file->file);
     	$headers = ['Content-Type: application/'. $file->filetype];
     	$fileName = $file->originalName;
-//    	dd(storage_path($file->file));
     	if (!file_exists(storage_path($file->file))) {
     	    return redirect()->back()->with(['danger' => __('Lead doesn\'t exist')]);
     	}

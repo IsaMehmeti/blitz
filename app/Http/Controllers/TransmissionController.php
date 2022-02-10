@@ -12,4 +12,10 @@ class TransmissionController extends Controller
         $transmissions = Transmission::all();
         return view('transmission.index', compact('transmissions'));
     }
+
+    public function show($id)
+    {
+        $transmission = Transmission::findOrFail($id);
+        return view('transmission.show', compact('transmission'));
+    }
 }

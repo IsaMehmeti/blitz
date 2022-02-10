@@ -37,7 +37,8 @@
                         <td> {{$transmission->leads ? $transmission->leads->where('status', false)->count() : ''}}</td>
                         <td> {{$transmission->user ? $transmission->user->name :  ''}}</td>
                         <td class="actions">
-                            <a data-toggle="tooltip" title="" href="{{route('transmission.download', $transmission->id)}}" data-original-title="{{__('Download')}}"  class="delete on-default"><i class="fas fa-download"></i></a>
+                            <a data-toggle="tooltip" title="" href="{{route('transmission.show', $transmission->id)}}" data-original-title="{{__('See more')}}"  class="delete on-default"><i class="fas fa-file-alt"></i></a>
+                            <a data-toggle="tooltip" title="" href="{{route('transmission.download', $transmission->file->id)}}" data-original-title="{{__('Download')}}"  class="delete on-default"><i class="fas fa-download"></i></a>
                         </td>
                     </tr>
                     @empty
