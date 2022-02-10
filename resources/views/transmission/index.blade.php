@@ -38,7 +38,9 @@
                         <td> {{$transmission->user ? $transmission->user->name :  ''}}</td>
                         <td class="actions">
                             <a data-toggle="tooltip" title="" href="{{route('transmission.show', $transmission->id)}}" data-original-title="{{__('See more')}}"  class="delete on-default"><i class="fas fa-file-alt"></i></a>
-                            <a data-toggle="tooltip" title="" href="{{route('transmission.download', $transmission->file->id)}}" data-original-title="{{__('Download')}}"  class="delete on-default"><i class="fas fa-download"></i></a>
+                            @if($transmission->file)
+                                <a data-toggle="tooltip" title="" href="{{route('transmission.download', $transmission->files->id)}}" data-original-title="{{__('Download')}}"  class="delete on-default"><i class="fas fa-download"></i></a>
+                            @endif
                         </td>
                     </tr>
                     @empty
